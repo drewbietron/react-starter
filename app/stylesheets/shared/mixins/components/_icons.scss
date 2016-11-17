@@ -1,9 +1,0 @@
-@mixin icon($content, $font-size: inherit, $color: inherit) {
-  &:before {
-    font-family: "FontAwesome";
-    content: $content;
-    font-size: $font-size;
-    color: $color;
-    -webkit-font-smoothing: antialiased;
-  }
-}
