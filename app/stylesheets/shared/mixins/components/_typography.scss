@@ -1,0 +1,64 @@
+@mixin type-base() {
+  font-family: $base-font-family;
+  font-weight: $base-font-weight;
+  @include type-size(base);
+}
+
+@mixin type-size($size: base, $custom: null) {
+  @if $custom == true {
+    font-size: $size;
+  }
+  font-size: map-get($type-size-base, $size);
+}
+
+@mixin type-style(
+$copy: false,
+$italic: false,
+$bold: null,
+$muted: false,
+$underline: false,
+$line-height-reset: false,
+$align: null,
+$headline: false) {
+  @if ($copy == true) {
+    line-height: $small-copy-line-height;
+    @media #{$medium-up} {
+      line-height: $medium-copy-line-height;
+    }
+    @media #{$large-up} {
+      line-height: $large-copy-line-height;
+    }
+  }
+  @if ($italic == true) {
+    font-style: italic;
+  }
+  @if ($bold == true) {
+    font-weight: $bold-font-weight;
+  }
+  @if ($bold == false) {
+    font-weight: $base-font-weight;
+  }
+  @if ($muted == true) {
+    color: map-get($colors, secondary-color);
+  }
+  @if ($underline == true) {
+    text-decoration: underline;
+  }
+  @if ($line-height-reset == true) {
+    line-height: 1;
+  }
+  @if ($headline == true){
+    text-transform: uppercase;
+    letter-spacing: .15rem;
+  }
+  text-align: $align;
+}
+
+@mixin type-font($copy: false, $heading: false) {
+  @if ($copy == true) {
+    font-family: $base-font-family;
+  }
+  @if ($heading == true) {
+    font-family: $heading-font-family;
+  }
+}

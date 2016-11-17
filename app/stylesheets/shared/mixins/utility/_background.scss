@@ -1,0 +1,12 @@
+@mixin background($size: null, $position: null, $image: null, $url: false, $color: null, $repeat: null) {
+  background-size: $size;
+  background-position: $position;
+  background-color: $color;
+  background-repeat: $repeat;
+  @if $image != null and $url == true {
+    background-image: url($image);
+  }
+  @if $image != null and $url == false {
+    background-image: $image;
+  }
+}

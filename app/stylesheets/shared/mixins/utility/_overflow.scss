@@ -1,0 +1,10 @@
+@mixin overflow($value: null, $x: null, $y: null,  $hide-scroll-bar: null) {
+ overflow: $value;
+ overflow-x: $x;
+ overflow-y: $y;
+ @if ($hide-scroll-bar == true) {
+   &::-webkit-scrollbar {
+     display: none;
+   }
+ }
+}

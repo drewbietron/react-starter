@@ -1,0 +1,68 @@
+@mixin button(
+              $primary: true,
+              $color: map-get($colors, cta-color),
+              $large: false,
+              $small: false,
+              $border-radius: true,
+              $width: 100%,
+              $disabled: false,
+              $hover: true
+              ) {
+  font-family: $base-font-family;
+  font-size: inherit;
+  outline: none;
+  width: $width;
+  height: auto;
+  transition: background-color $transition-time;
+  cursor: pointer;
+  @if ($primary == true) {
+    background-color: $color;
+    border: none;
+    color: map-get($colors, white);
+  } @else {
+    background-color: transparent;
+    border: 2px solid $color;
+    color: $color;
+  }
+  @if ($border-radius != false) {
+    border-radius: map-get($sizing, border-radius);
+  }
+  @if ($large == true) {
+    padding: 1rem .5rem;
+    font-size: 125%;
+  } @else if ($small == true) {
+    padding: .3rem;
+    font-size: 90%;
+  } @else {
+    padding: .5rem;
+  }
+  @if ($disabled == true) {
+    background-color: map-get($colors, disabled);
+    color: lighten(map-get($colors, black), 10%);
+    @if ($primary == false) {
+      border: 2px solid darken(map-get($colors, disabled), 10%);
+    }
+  }
+  @if ($hover == true) {
+    &:hover {
+      text-decoration: none;
+      @if ($disabled == false) {
+        @if ($primary == true and $disabled == false) {
+          background-color: darken($color, 10%);
+        } @else {
+          background-color: lighten($color, 37%);
+        }
+      }
+    }
+    &:active {
+      @if ($disabled == false) {
+        @if ($primary == true) {
+          background-color: darken($color, 15%);
+        } @else {
+          background-color: lighten($color, 32%);
+          color: $color;
+        }
+      }
+    }
+  }
+}

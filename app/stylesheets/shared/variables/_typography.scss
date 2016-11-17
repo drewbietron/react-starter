@@ -1,0 +1,31 @@
+@import url(https://fonts.googleapis.com/css?family=Imprima:400,700|Quattrocento+Sans:400,700);
+
+$small-base-line-height: 1.1;
+$medium-base-line-height: 1.3;
+$large-base-line-height: 1.4;
+
+$small-copy-line-height: 1.75;
+$medium-copy-line-height: 1.5;
+$large-copy-line-height: 1.7;
+
+$small-base-font-size: .9rem;
+$medium-base-font-size: 1rem;
+$large-base-font-size: 1.25rem;
+
+$base-font-size: 1rem;
+$base-font-weight: 400;
+$bold-font-weight: 700;
+
+$base-font-family: 'Quattrocento Sans', sans-serif;
+$copy-font-family: 'Quattrocento Sans', sans-serif;
+$heading-font-family: 'Imprima', serif;
+
+$type-size-base : (
+  xxsmall: 0.7rem,
+  xsmall: 0.8rem,
+  small: 0.9rem,
+  base: 1rem,
+  large: 1.2rem,
+  xlarge: 1.4rem,
+  xxlarge: 1.6rem,
+) !default;

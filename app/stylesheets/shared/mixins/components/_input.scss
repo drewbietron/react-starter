@@ -1,0 +1,26 @@
+@mixin input(
+$color: map-get($colors, black),
+$background-color: map-get($colors, tertiary-color),
+$border-color: map-get($colors, black),
+$width: 100%,
+$height: auto
+) {
+  appearance: none;
+  @include type-font($copy: true);
+  @include type-size($size: .9rem, $custom: true);
+  line-height: 1;
+  background-color: $background-color;
+  border-color:$border-color;
+  color: $color;
+  border-radius: map-get($sizing, border-radius);
+  border-style: solid;
+  border-width: .1rem;
+  cursor: pointer;
+  display: inline-block;
+  font-size: .9rem;
+  height: $height;
+  outline: none;
+  padding: 0.4rem .5rem;
+  position: relative;
+  width: $width;
+}

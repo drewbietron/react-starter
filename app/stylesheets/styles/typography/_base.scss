@@ -1,0 +1,15 @@
+html {
+  font-size: 100%;
+}
+
+body {
+  color: map-get($colors, black);
+  font-family: $base-font-family;
+  font-weight: $base-font-weight;
+}
+
+a {
+  color: inherit;
+  text-decoration: inherit;
+}
+

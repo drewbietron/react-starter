@@ -1,0 +1,44 @@
+// $colors: (
+//   white: #F9F9F9,
+//   black: #555555,
+//   primary-color: #555555,
+//   secondary-color: lighten(#555555, 50%),
+//   tertiary-color: lighten(#555555, 65%),
+//   cta-color: #22DD8C,
+//   base-color: #555555
+// );
+
+// Example of another palette
+
+$colors: (
+  white: #F9F9F9,
+  black: #555555,
+  primary-color: #555555,
+  secondary-color: lighten(#555555, 50%),
+  tertiary-color: lighten(#555555, 65%),
+  cta-color: #F49831,
+  base-color: #555555,
+  success: #27AE60,
+  error: #E74C3C,
+  disabled: #D3D3D3
+);
+
+// $colors: (
+//   white: #F9F9F9,
+//   black: #555555,
+//   primary-color: #555555,
+//   secondary-color: #84D6F8,
+//   tertiary-color: lighten(#555555, 65%),
+//   cta-color: #4A90E2,
+//   base-color: #555555
+// );
+
+// $colors: (
+//   white: #F9F9F9,
+//   black: #555555,
+//   primary-color: #555555,
+//   secondary-color: lighten(#555555, 50%),
+//   tertiary-color: lighten(#555555, 65%),
+//   cta-color: #ef4b23,
+//   base-color: #555555
+// );

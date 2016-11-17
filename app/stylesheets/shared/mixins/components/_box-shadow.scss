@@ -1,0 +1,6 @@
+@mixin module-box-shadow($color: #{map-get($colors, secondary-color)}, $border: true) {
+  box-shadow: 0 5px 3px -3px $color;
+  @if $border != false {
+    border: 1px solid $color;
+  }
+}

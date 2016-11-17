@@ -1,0 +1,12 @@
+version: "2"
+services:
+  web:
+    labels:
+      - convox.health.path=/
+      - convox.health.port=80
+    image: 590710864528.dkr.ecr.us-east-1.amazonaws.com/seller-sites:web
+    build:
+      context: .
+    ports:
+      - 80:80
+    command: /usr/sbin/nginx -g "daemon off;"

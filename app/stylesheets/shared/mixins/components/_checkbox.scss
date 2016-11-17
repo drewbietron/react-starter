@@ -1,0 +1,83 @@
+@mixin checkbox-base() {
+  display: inline-block;
+  position: relative;
+  outline: none;
+  font-size: .9rem;
+  line-height: 1;
+  padding: 0.4rem .8rem;
+  border-style: solid;
+  border-width: .1rem;
+  cursor: pointer;
+  text-align: center;
+  border-radius: map-get($sizing, border-radius);
+  transition: background-color $transition-time ease, color $transition-time ease, border-color $transition-time ease, padding $transition-time * 1.5;
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+@mixin checkbox(
+$color: map-get($colors, black),
+$checked-color: map-get($colors, cta-color),
+$background-color: map-get($colors, tertiary-color),
+$border-color: map-get($colors, black),
+$width: auto
+) {
+  display: inline-block;
+  overflow: hidden;
+  position: relative;
+  width: $width;
+  input[type='checkbox'],
+  input[type='radio'] {
+    appearance: none;
+    display: none;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    &:checked + label {
+      color: $checked-color;
+      background-color: $background-color;
+      border-color: $checked-color;
+      z-index: 3;
+    }
+  }
+  label {
+    @include checkbox-base();
+    width: $width;
+    color: $color;
+    border-color: $border-color;
+    background-color: rgba($background-color, .5);
+    span {
+      @include type-size(xsmall);
+      @include pl(.25rem);
+    }
+    &:hover {
+      background-color: rgba($background-color, .5);
+      color: $checked-color;
+    }
+    &:active {
+      background-color: rgba($background-color, .75);
+    }
+    z-index: 2;
+  }
+}
+
+@mixin checkbox-disabled(
+$color: map-get($colors, disabled)
+) {
+  input[type='checkbox'],
+  input[type='radio'],
+  label {
+    color: darken($color, 20%);
+    border-color: darken($color, 20%);
+    background-color: darken($color, 5%);
+    cursor: default;
+    &:hover, &:active {
+      color: darken($color, 20%);
+      border-color: darken($color, 20%);
+      background-color: darken($color, 5%);
+    }
+  }
+}

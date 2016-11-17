@@ -1,0 +1,13 @@
+@import "~foundation-sites/scss/foundation.scss";
+
+// Foundation
+@include foundation-grid;
+@include foundation-visibility-classes;
+
+@import "./shared/**/*";
+
+// CSS Reset
+@import "./reset";
+
+// Computed styles
+@import "./styles/**/*";
