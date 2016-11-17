@@ -1,7 +1,0 @@
-@mixin star($empty:false, $size: 1rem) {
-  @if $empty == true {
-    @include icon(map-get($icons, star-empty), $font-size: #{$size})
-  } @else {
-    @include icon(map-get($icons, star), $font-size: #{$size})
-  }
-}

@@ -1,7 +1,0 @@
-@mixin color($value, $custom: null) {
-  @if ($custom != null) {
-    color: $value;
-  } @else {
-    color: map-get($colors, $value);
-  }
-}
