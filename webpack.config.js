@@ -1,39 +1,59 @@
-'use strict';
-
 const webpack = require('webpack');
-const autoprefixer = require('autoprefixer');
-const glob = require('glob');
+const path = require('path');
 
-module.exports = {
-  devtool: 'inline-eval-cheap-source-map',
+const HOST = 'react.starter';
+const PORT = '7337';
+
+const webpackDevConfig = {
+  resolve: {
+    extensions: ['.js', '.jsx', '.ts', '.tsx'],
+    modules: [path.resolve('./src'), 'node_modules'],
+  },
   entry: {
     vendor: [
+      'axios',
+      'core-js',
       'react',
+      'react-click-outside',
       'react-dom',
+      'react-ga',
+      'react-helmet',
+      'react-redux',
+      'react-router',
+      'react-transition-group',
+      'redux',
+      'redux-thunk',
+      'reselect',
     ],
     styles: [
-      'webpack-dev-server/client?http://localhost:3000',
+      `webpack-dev-server/client?http://${HOST}:${PORT}`,
       'webpack/hot/only-dev-server',
       './app/stylesheets/main.scss',
     ],
     main: [
-      'webpack-dev-server/client?http://localhost:3000',
+      `webpack-dev-server/client?http://${HOST}:${PORT}`,
       'webpack/hot/only-dev-server',
-      './app/index.js',
+      './app/index.tsx',
     ],
   },
   output: {
     filename: '[name].bundle.js',
+    path: path.resolve('./build'),
     publicPath: '/assets/',
   },
   plugins: [
+    new webpack.DefinePlugin({
+      'process.env': {
+        DEV_ENV: true,
+      },
+    }),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin(),
   ],
   devServer: {
-    host: 'localhost',
+    headers: { 'Access-Control-Allow-Origin': '*' },
+    host: HOST,
     hot: true,
-    port: 3000,
+    port: PORT,
     historyApiFallback: true,
     stats: {
       chunks: false,
@@ -42,13 +62,8 @@ module.exports = {
       timings: false,
     },
   },
-  postcss: [
-    autoprefixer({
-      browsers: ['> 1%', 'last 2 versions'],
-    }),
-  ],
   module: {
-    loaders: [
+    rules: [
       {
         test: /(\.png$|\.jpg$|\.jpeg$|\.gif$|\.svg$)/,
         loader: 'file-loader',
@@ -57,23 +72,19 @@ module.exports = {
         },
       },
       {
-        test: /(\.js$|\.jsx$)/,
-        exclude: /\/node_modules\//,
-        loader: 'babel-loader',
-        query: {
-          presets: ['es2015', 'react', 'react-hmre'],
-        },
+        test: /(\.scss$|\.css$)/,
+        use: ['style-loader', 'css-loader', 'postcss-loader', 'sass-loader', 'import-glob-loader'],
       },
       {
-        test: /(\.scss$|\.css$)/,
-        loaders: [
-          'style',
-          'css',
-          'postcss',
-          'sass',
-          'import-glob',
-        ],
+        test: /\.json$/,
+        loader: 'json-loader',
+      },
+      {
+        test: /\.tsx?$/,
+        use: ['ts-loader'],
       },
     ],
   },
 };
+
+module.exports = webpackDevConfig;

@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+HOST="react-starter.site"
+ALT_NAME="[SAN]\nsubjectAltName=DNS:${HOST}"
+
+cd ssl/
+
+openssl genrsa -des3 -passout pass:x -out server.pass.key 2048
+openssl rsa -passin pass:x -in server.pass.key -out server.key
+
+openssl req \
+    -key server.key \
+    -x509 \
+    -nodes \
+    -new \
+    -out server.crt \
+    -subj /CN=$HOST \
+    -reqexts SAN \
+    -extensions SAN \
+    -config <(cat /System/Library/OpenSSL/openssl.cnf \
+        <(printf $ALT_NAME)) \
+    -sha256 \
+    -days 3650
+
+sudo security add-trusted-cert -d -r trustRoot -k "/Library/Keychains/System.keychain" server.crt
