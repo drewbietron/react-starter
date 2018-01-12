@@ -1,4 +1,4 @@
-import * as actionTypes from '../../app/actions/action-types.js';
+import * as actionTypes from '../../app/actions/action-types';
 
 export function addData(data) {
   return {

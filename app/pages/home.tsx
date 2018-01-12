@@ -1,9 +1,14 @@
-import React from 'react';
+import * as React from 'react';
 import Helmet from 'react-helmet';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 
-import DumbComponent from '../components/dumb-component.jsx';
+import { addData, resetData } from '../actions/action';
 
-export default class Home extends React.Component {
+import DumbComponent from '../components/dumb-component';
+
+export class Home extends React.Component<any, any> {
+  textInput: any;
   constructor() {
     super();
 
@@ -24,11 +29,7 @@ export default class Home extends React.Component {
       <section className="home">
         <Helmet title={'Html Title'} />
         <div className="home__container">
-          <input
-            type="text"
-            ref={(input) => this.textInput = input}
-            placeholder="Enter new prop value"
-          / >
+          <input type="text" placeholder="Enter new prop value" />
           <button onClick={this.dispatchAddAction}>Dispatch add action</button>
           <DumbComponent data={this.props.data} />
           <button onClick={this.dispatchResetAction}>Reset to model defaults</button>
@@ -38,10 +39,22 @@ export default class Home extends React.Component {
   }
 }
 
-Home.propTypes = {
-  data: React.PropTypes.shape({}).isRequired,
-  actions: React.PropTypes.shape({
-    addData: React.PropTypes.func.isRequired,
-    resetData: React.PropTypes.func.isRequired,
-  }).isRequired,
-};
+function mapStateToProps(state) {
+  return {
+    data: state.data,
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(
+      {
+        addData,
+        resetData,
+      },
+      dispatch
+    ),
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
