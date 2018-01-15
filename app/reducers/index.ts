@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
-import data from './reducer';
+import spotifyData from './spotify';
 
 const sitesReducers = combineReducers({
-  data,
+  spotifyData,
 });
 
 export default sitesReducers;

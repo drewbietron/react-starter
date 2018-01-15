@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-HOST="react-starter.site"
+HOST="lp.player"
 ALT_NAME="[SAN]\nsubjectAltName=DNS:${HOST}"
 
 cd ssl/

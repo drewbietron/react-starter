@@ -1,7 +1,7 @@
 const webpack = require('webpack');
 const path = require('path');
 
-const HOST = 'react.starter';
+const HOST = 'lp.player';
 const PORT = '7337';
 
 const webpackDevConfig = {

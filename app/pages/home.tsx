@@ -3,57 +3,60 @@ import Helmet from 'react-helmet';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import { addData, resetData } from '../actions/action';
+import { authWithSpotify, fetchSpotifyUser } from '../actions/spotify';
+import { IReduxStore } from '../models/redux-store';
+import { ISpotifyData } from '../models/spotify';
 
-import DumbComponent from '../components/dumb-component';
+const SPOTIFY_CALLBACK_URL = 'https://lp.player:7337';
 
-export class Home extends React.Component<any, any> {
-  textInput: any;
-  constructor() {
-    super();
+const url = `https://accounts.spotify.com/authorize?client_id=${
+  process.env.SPOTIFY_CLIENT_ID
+}&scope=playlist-read-private%20playlist-read-collaborative%20playlist-modify-public%20user-read-recently-played%20playlist-modify-private%20ugc-image-upload%20user-follow-modify%20user-follow-read%20user-library-read%20user-library-modify%20user-read-private%20user-read-email%20user-top-read%20user-read-playback-state&response_type=token&redirect_uri=${SPOTIFY_CALLBACK_URL}`;
 
-    this.dispatchAddAction = this.dispatchAddAction.bind(this);
-    this.dispatchResetAction = this.dispatchResetAction.bind(this);
-  }
+interface IHomeProps {
+  spotifyData: ISpotifyData;
+  actions: any;
+}
 
-  dispatchAddAction() {
-    this.props.actions.addData({ foo: this.textInput.value });
-  }
+export class Home extends React.Component<IHomeProps, any> {
+  audio: any;
 
-  dispatchResetAction() {
-    this.props.actions.resetData();
+  componentDidMount() {
+    let hashParams: any = {};
+    let e,
+      r = /([^&;=]+)=?([^&;]*)/g,
+      q = window.location.hash.substring(1);
+    while ((e = r.exec(q))) {
+      hashParams[e[1]] = decodeURIComponent(e[2]);
+    }
+
+    if (!hashParams.access_token) {
+      this.props.actions.authWithSpotify();
+    } else {
+      this.props.actions.fetchSpotifyUser(hashParams.access_token);
+    }
   }
 
   render() {
+    console.log(this.props);
     return (
       <section className="home">
         <Helmet title={'Html Title'} />
-        <div className="home__container">
-          <input type="text" placeholder="Enter new prop value" />
-          <button onClick={this.dispatchAddAction}>Dispatch add action</button>
-          <DumbComponent data={this.props.data} />
-          <button onClick={this.dispatchResetAction}>Reset to model defaults</button>
-        </div>
+        <div className="home__container" />
       </section>
     );
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state: IReduxStore) {
   return {
-    data: state.data,
+    spotifyData: state.spotifyData,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(
-      {
-        addData,
-        resetData,
-      },
-      dispatch
-    ),
+    actions: bindActionCreators({ authWithSpotify, fetchSpotifyUser }, dispatch),
   };
 }
 

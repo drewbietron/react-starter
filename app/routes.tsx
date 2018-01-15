@@ -11,6 +11,7 @@ export class Routes extends React.Component {
       <Router history={browserHistory}>
         <Route path="/" component={App}>
           <IndexRoute component={Home} />
+          <Route path="/callback" component={Home} />
         </Route>
       </Router>
     );
